@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>House Price Prediction</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', path='/style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>House Price Prediction</h1>
+        <p>Machine Learning powered housing price estimator</p>
+    </div>
+
+    <form action="/predict" method="POST">
+
+        <h3>Property Details</h3>
+
+        <div class="form-grid">
+
+            <div>
+                <label>Area (sq. ft.)</label>
+                <input type="number" name="area" min="1" required>
+            </div>
+
+            <div>
+                <label>Bedrooms</label>
+                <input type="number" name="bedrooms" min="1" required>
+            </div>
+
+            <div>
+                <label>Bathrooms</label>
+                <input type="number" name="bathrooms" min="1" required>
+            </div>
+
+            <div>
+                <label>Stories</label>
+                <input type="number" name="stories" min="1" required>
+            </div>
+
+            <div>
+                <label>Parking</label>
+                <input type="number" name="parking" min="0" required>
+            </div>
+
+            <div>
+                <label>Furnishing Status</label>
+                <select name="furnishingstatus" required>
+                    <option value="furnished">Furnished</option>
+                    <option value="semi-furnished">Semi-Furnished</option>
+                    <option value="unfurnished">Unfurnished</option>
+                </select>
+            </div>
+
+        </div>
+
+        <h3>Property Features</h3>
+
+        <div class="form-grid">
+
+            <div>
+                <label>Main Road</label>
+                <select name="mainroad">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Guest Room</label>
+                <select name="guestroom">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Basement</label>
+                <select name="basement">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Hot Water Heating</label>
+                <select name="hotwaterheating">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Air Conditioning</label>
+                <select name="airconditioning">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Preferred Area</label>
+                <select name="prefarea">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+
+        </div>
+
+        <button type="submit">
+            Predict House Price
+        </button>
+
+    </form>
+
+    {% if prediction is not none %}
+    <div class="result">
+        <h2>Predicted House Price</h2>
+        <p>{{ "{:,.2f}".format(prediction) }}</p>
+        <small>Dataset price units</small>
+    </div>
+    {% endif %}
+
+    {% if error %}
+    <div class="error">
+        {{ error }}
+    </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
+
